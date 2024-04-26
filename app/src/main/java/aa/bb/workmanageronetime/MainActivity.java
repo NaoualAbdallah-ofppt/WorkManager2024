@@ -11,6 +11,7 @@ import androidx.work.WorkRequest;
 
 import android.os.Bundle;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
                 .putInt("num", 45)
                 .putString("nom","Alami")
                 .build();
-
+//générer un identifiant
+        UUID workId = UUID.randomUUID();
         WorkRequest wr1 = new OneTimeWorkRequest.Builder(myWork.class)
+                .setId(workId) // l'identifiant va être utilisé pour annuler le travail par exemple
                 .setConstraints(C)
                 .setInputData(D)
               // .setInitialDelay(1, TimeUnit.MINUTES)
@@ -38,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
         WorkManager.getInstance(this).enqueue(wr1);
 
+        //pour annuler un travail démarré
+//WorkManager.getInstance(this).cancelWorkById(workId);
+
+
+/*
         WorkRequest wr2= new PeriodicWorkRequest.Builder(
                 myWork.class,15, TimeUnit.MINUTES)
                 //.setInitialDelay(1,TimeUnit.HOURS)
@@ -45,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
              //   .setInputData(D)
                 //durée minimale 15 mn
                 .build();
+  WorkManager.getInstance(this).enqueue(wr2);
 
+ */
 
         //Si aucune contarainte et si aucune donnée
       //  WorkRequest wr = new OneTimeWorkRequest.Builder(myWork.class).build();
