@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "aa.bb.workmanageronetime"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "aa.bb.workmanageronetime"
